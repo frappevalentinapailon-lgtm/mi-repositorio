@@ -1,0 +1,12 @@
+mi-repositorio/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt  <-- Muy importante para Render
+│   └── taller.db
+└── frontend/
+    ├── index.html
+    └── images/
+        ├── logocea.png
+        ├── logolsb.png
+        ├── taller1.png
+        └── taller2.png
