@@ -11,9 +11,6 @@
     <meta property="og:type" content="website">
 
     <title>Inscripción Taller LSB - Pailón</title>
-
-<!-- Link para instalar a pantalla -->
-<link rel="manifest" href="/instalar/manifest.json">
     
     <style>
         :root { --azul: #0056b3; --verde: #28a745; --blanco: #ffffff; --fondo: #f0f2f5; }
@@ -24,9 +21,9 @@
         
         .hero { text-align: center; padding: 40px 20px; background: var(--blanco); }
         .facilitadoras-container { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
-        .facilitadora { display: flex; flex-direction: column; align-items: center; }
+        .facilitadora { display: flex; flex-direction: column; align-items: center; max-width: 150px; }
         .facilitadora img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 4px solid var(--azul); }
-        .facilitadora span { margin-top: 10px; font-weight: bold; color: var(--azul); font-size: 0.9em; }
+        .facilitadora span { margin-top: 10px; font-weight: bold; color: var(--azul); font-size: 0.9em; text-align: center; }
 
         .container { max-width: 500px; margin: -30px auto 50px; padding: 0 20px; }
         .card { background: var(--blanco); padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; z-index: 10; }
@@ -54,11 +51,11 @@
     <div class="facilitadoras-container">
         <div class="facilitadora">
             <img src="/images/taller1.png" alt="Lic. Jackeline Padilla">
-            <span>Lic. Jackeline Padilla</span>
+            <span>Lic. Jackeline<br>Padilla Arevalo</span>
         </div>
         <div class="facilitadora">
-            <img src="/images/taller2.png" alt="Segunda Facilitadora">
-            <span>Lic. Invitada</span> 
+            <img src="/images/taller2.png" alt="Lic. Mario Marcelo Rojas Vargas">
+            <span>Lic. Mario Marcelo<br>Rojas Vargas</span> 
         </div>
     </div>
     <h1 style="color:var(--azul); margin:15px 0 5px; font-size: 26px;">Taller de Lenguaje de Señas</h1>
@@ -91,9 +88,6 @@
     CEA Prof. Herman Ortiz Camargo - Pailón.<br>
     <em>Lic. Rosalia • Lic. Álvaro • Lic. Elizabeth</em>
 </footer>
-
-<!-- script para instalar a pantalla -->
-<script src="/instalar/pwa.js"></script>
 
 </body>
 </html>
