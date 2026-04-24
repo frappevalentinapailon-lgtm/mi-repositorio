@@ -2,16 +2,13 @@ from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 import os
 
-# Configuración de Flask para reconocer las carpetas externas
 app = Flask(__name__, 
             template_folder='../frontend', 
             static_folder='../frontend',
             static_url_path='')
 
-# Clave de seguridad para las sesiones (puedes cambiarla por cualquier texto)
 app.secret_key = 'lsb_pailon_2026_secret_key'
 
-# Credenciales de Administrador
 ADMIN_USER = "admin@lsb.com"
 ADMIN_PASS = "12345"
 
@@ -30,31 +27,36 @@ def init_db():
     conn.commit()
     conn.close()
 
+# SOLUCIÓN AL ERROR 500: Ejecutamos la función aquí mismo para que Render la lea sí o sí.
+init_db()
+
 @app.route('/')
 def index():
-    """Muestra la página de inicio (formulario)."""
     return render_template('index.html')
 
 @app.route('/registrar', methods=['POST'])
 def registrar():
-    """Recibe y guarda los datos del formulario."""
     nombre = request.form.get('nombre')
     whatsapp = request.form.get('whatsapp')
     categoria = request.form.get('categoria')
 
     if nombre and whatsapp:
-        conn = sqlite3.connect('taller.db')
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO inscritos (nombre, whatsapp, categoria) VALUES (?, ?, ?)', 
-                       (nombre, whatsapp, categoria))
-        conn.commit()
-        conn.close()
-        return "¡Inscripción exitosa! Nos pondremos en contacto contigo pronto."
+        try:
+            conn = sqlite3.connect('taller.db')
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO inscritos (nombre, whatsapp, categoria) VALUES (?, ?, ?)', 
+                           (nombre, whatsapp, categoria))
+            conn.commit()
+            conn.close()
+            return "¡Inscripción exitosa! Nos pondremos en contacto contigo pronto. <br><a href='/'>Volver al inicio</a>"
+        except Exception as e:
+            # Si hay otro error interno, ahora te mostrará qué es exactamente
+            return f"Ocurrió un error al guardar: {e}", 500
+            
     return "Error: Faltan datos importantes.", 400
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Pantalla de acceso para el administrador."""
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -78,7 +80,6 @@ def login():
 
 @app.route('/ver-lista-pailon-2026')
 def ver_inscritos():
-    """Muestra la tabla de personas inscritas (solo admin)."""
     if not session.get('admin_logged_in'):
         return redirect(url_for('login'))
     
@@ -112,10 +113,8 @@ def ver_inscritos():
 
 @app.route('/logout')
 def logout():
-    """Cierra la sesión del admin."""
     session.pop('admin_logged_in', None)
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
